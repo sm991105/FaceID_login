@@ -1,0 +1,28 @@
+<html>
+  {% with messages= get_flashed_messages()%} {% if messages %}
+  <script>
+    alert("{{messages[-1]}}");
+  </script>
+  {% endif %} {% endwith %}
+
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+  </head>
+  <body>
+    <form class="login_form" name="form" action="/login" method="POST">
+      <thead>
+        <caption>
+          WELCOME!
+        </caption>
+        <thead></thead>
+      </thead>
+      <p>EMAIL <input type="text" name="email" /></p>
+      <p>PW <input type="password" name="pw" /></p>
+      <input type="submit" value="login" />
+      &nbsp;&nbsp;
+    </form>
+  </body>
+</html>
