@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "c:\\Users\\Suemin\\Documents\\faceid\\venv\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\Users\\Suemin\\Documents\\faceid\\venv\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }

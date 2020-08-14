@@ -1,11 +1,8 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return "<h5>Hi!</h5>"
+def dataCal2(data):
+    data[0] = data[0] + 1
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=9000)
+data2 = [1]
+dataCal2(data2)
+
+print(data2)
