@@ -89,7 +89,7 @@ def member_login():
                         boxes = face_recognition.face_locations(rgb, model="HOG")
                         encodings = face_recognition.face_encodings(rgb, boxes)
                         names = []
-
+                        print("Encoding start!")
                         for encoding in encodings:
                             matches = face_recognition.compare_faces(data['encodings'], encoding, tolerance = 0.4)
                             name = 'unknown'
@@ -108,7 +108,11 @@ def member_login():
                                     counts[data['names'][items]] = counts.get(data['names'][items]) + 1
                                 name = max(counts, key=counts.get)
                                 print()
-                            names.append(name)
+                                names.append(name)
+                            else:
+                                return render_template("./login.html")
+
+                         
 
                         for ((top, right, bottom, left), name) in zip(boxes, names):
                             y = top-15
@@ -124,26 +128,23 @@ def member_login():
                         cv2.imshow('Recognition', frame)
 
                         
-                        if(counts['suemin'] > 6):
+                        if(counts['suemin'] > 6): # 'counts' referenced before assignment
                             print("it's suemin!")
                             global cnt
                             cnt += 1
                             print(cnt)
-
-                            if(cnt == 5):
-                                cap.release()
-                                cv2.destroyAllWindows()
-                                cnt = 0
-                                return render_template("success.html")
                         else:
-                            return flash("비밀번호가 일치하지 않습니다.")
+                            return render_template("./login.html")
                                                 
                            
                 data = pickle.loads(open(encoding_file, 'rb').read())
 
                 cap = cv2.VideoCapture(0)
                    
-                while True:
+                while (cnt < 10):
+                    if(cnt == 5):
+                        return render_template("./success.html")
+
                     ret, frame = cap.read()
                     if frame is None:
                         print('No more captured frames!')
@@ -163,8 +164,6 @@ def member_login():
 
    else:
        return render_template("./login.html")
-
-
 
        
 #client를 특정하기 위해 쿠키같은 정보나 세션으로 서버에 저장해둠.
