@@ -12,6 +12,8 @@ from mongoengine import connect
 import cv2
 import face_recognition
 import pickle
+
+cnt = 0
  
 app = Flask(__name__)
 app.config["MONGO_URI"]="mongodb+srv://jiyulLee:sh032418@cluster0.tsie7.mongodb.net/faceid?retryWrites=true&w=majority"
@@ -61,6 +63,7 @@ def index():
 
 
 @app.route("/login", methods=["GET","POST"])
+
 def member_login():
    if request.method == "POST":
        email = request.form.get("email")
@@ -96,7 +99,6 @@ def member_login():
                                 for (i,b) in enumerate(matches):
                                     if(b == True):
                                         matchedIndxs.append(i)
-                                print(matchedIndxs)
 
                                 counts={}
                                 for items in matchedIndxs:
@@ -104,11 +106,10 @@ def member_login():
                                     counts[name]= 0
                                 for items in matchedIndxs:
                                     counts[data['names'][items]] = counts.get(data['names'][items]) + 1
-                                    print(data['names'][items])
                                 name = max(counts, key=counts.get)
-                                print(counts)
                                 print()
                             names.append(name)
+
                         for ((top, right, bottom, left), name) in zip(boxes, names):
                             y = top-15
                             color=(255,255,0)
@@ -119,11 +120,29 @@ def member_login():
                                 name = ''
                             cv2.rectangle(frame, (left,top), (right,bottom), color,line)
                             cv2.putText(frame, name, (left,y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, color, line)
-
+                        
                         cv2.imshow('Recognition', frame)
+
+                        
+                        if(counts['suemin'] > 6):
+                            print("it's suemin!")
+                            global cnt
+                            cnt += 1
+                            print(cnt)
+
+                            if(cnt == 5):
+                                cap.release()
+                                cv2.destroyAllWindows()
+                                cnt = 0
+                                return render_template("success.html")
+                        else:
+                            return flash("비밀번호가 일치하지 않습니다.")
+                                                
+                           
                 data = pickle.loads(open(encoding_file, 'rb').read())
 
                 cap = cv2.VideoCapture(0)
+                   
                 while True:
                     ret, frame = cap.read()
                     if frame is None:
@@ -144,6 +163,8 @@ def member_login():
 
    else:
        return render_template("./login.html")
+
+
 
        
 #client를 특정하기 위해 쿠키같은 정보나 세션으로 서버에 저장해둠.
