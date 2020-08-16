@@ -109,8 +109,10 @@ def member_login():
                                 data["encodings"], encoding, tolerance=0.4
                             )
                             name = "unknown"
+                            print(matches)
 
                             if True in matches:
+                                print("True in matches!")
                                 matchedIndxs = []
                                 for (i, b) in enumerate(matches):
                                     if b == True:
@@ -127,8 +129,10 @@ def member_login():
                                 name = max(counts, key=counts.get)
                                 print()
                                 names.append(name)
+                                print(name)
+                                print(counts)
                             else:
-                                flash("얼굴을 인식시켜주세요1")
+                                print("something not right!")
 
                         for ((top, right, bottom, left), name) in zip(boxes, names):
                             y = top - 15
@@ -152,17 +156,25 @@ def member_login():
                             )
 
                         cv2.imshow("Recognition", flipped)
-
-                        if counts[pdata["name"]] > 6:
-                            print("it's " + pdata["name"] + "!")
-                            global cnt
-                            cnt += 1
-                            print(cnt)
+                        if pdata["name"] in counts:
+                            if counts[pdata["name"]] > 6:
+                                print("it's " + pdata["name"] + "!")
+                                global cnt
+                                cnt += 1
+                                print(cnt)
+                            else:
+                                return render_template("./login.html")
                         else:
+                            flash("인식에 실패하였습니다.")
+                            cap.release()
+                            cv2.destroyAllWindows()
                             return render_template("./login.html")
+
                     else:
                         print("encoding doesn't exist")
                         flash("카메라에 얼굴을 인식시켜주세요.")
+                        cap.release()
+                        cv2.destroyAllWindows()
                         return render_template("./login.html")
 
                     if cv2.waitKey(1) & 0xFF == ord("q"):
