@@ -90,7 +90,8 @@ def member_login():
                 # Starts here
                 data = pickle.loads(open(encoding_file, "rb").read())
 
-                cap = cv2.VideoCapture(0)
+                # cap = cv2.VideoCapture(0)
+                cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
                 while True:
                     ret, frame = cap.read()
                     if frame is None:
@@ -157,15 +158,18 @@ def member_login():
 
                         cv2.imshow("Recognition", flipped)
                         if pdata["name"] in counts:
-                            if counts[pdata["name"]] > 6:
+                            if counts[pdata["name"]] > 4:
                                 print("it's " + pdata["name"] + "!")
                                 global cnt
                                 cnt += 1
                                 print(cnt)
                             else:
-                                return render_template("./login.html")
+                                cnt = 0
+                                flash("인식에 실패하였습니다.")
+                                return render_template("./join.html")
                         else:
                             flash("인식에 실패하였습니다.")
+                            cnt = 0
                             cap.release()
                             cv2.destroyAllWindows()
                             return render_template("./login.html")
@@ -173,6 +177,7 @@ def member_login():
                     else:
                         print("encoding doesn't exist")
                         flash("카메라에 얼굴을 인식시켜주세요.")
+                        cnt = 0
                         cap.release()
                         cv2.destroyAllWindows()
                         return render_template("./login.html")
@@ -184,6 +189,7 @@ def member_login():
                         print("by 5")
                         cap.release()
                         cv2.destroyAllWindows()
+                        cnt = 0
                         return render_template("./success.html")
 
                 cap.release()
