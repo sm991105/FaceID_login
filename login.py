@@ -28,7 +28,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/join", methods=["GET", "POST"])
+@app.route("/sign_up", methods=["GET", "POST"])
 def member_join():
     if request.method == "POST":
         name = request.form.get("name", type=str)
@@ -37,13 +37,13 @@ def member_join():
 
         if name == "" or email == "" or pw == "":
             flash("입력되지 않은 값이 있습니다!")
-            return render_template("join.html")
+            return render_template("sign_up.html")
 
         members = mongo.db.test
         cnt = members.find({"email": email}).count()
         if cnt > 0:
             flash("중복된 id값이 있습니다!")
-            return render_template("join.html")
+            return render_template("sign_up.html")
 
         current_utc_time = round(datetime.utcnow().timestamp() * 1000)
         post = {
@@ -60,7 +60,7 @@ def member_join():
         return ""
 
     else:
-        return render_template("join.html")
+        return render_template("sign_up.html")
 
 
 @app.route("/login", methods=["GET", "POST"])

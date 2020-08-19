@@ -1,28 +1,57 @@
-<html>
-  {% with messages= get_flashed_messages()%} {% if messages %}
-  <script>
-    alert("{{messages[-1]}}");
-  </script>
-  {% endif %} {% endwith %}
-
+<!DOCTYPE html>
+{% with messages= get_flashed_messages()%} {% if messages %}
+<script>
+  alert("{{messages[-1]}}");
+</script>
+{% endif %} {% endwith %}
+<html lang="ko">
   <head>
+    <meta charset="UTF-8" />
+    <title>Inc0gnito face id - 로그인</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}" />
     <link
+      href="https://fonts.googleapis.com/css?family=Quicksand&display=swap"
       rel="stylesheet"
-      href="{{ url_for('static', filename='login.css') }}"
     />
   </head>
   <body>
-    <form class="login_form" name="form" action="/login" method="POST">
-      <thead>
-        <caption>
-          WELCOME!
-        </caption>
-        <thead></thead>
-      </thead>
-      <p>EMAIL <input type="text" name="email" /></p>
-      <p>PW <input type="password" name="pw" /></p>
-      <input type="submit" value="login" />
-      &nbsp;&nbsp;
-    </form>
+    <div class="container">
+      <div class="contact-box">
+        <div class="left"></div>
+        <div class="right">
+          <h2>Face ID 로그인</h2>
+          <!--div class="formBox"-->
+          <form name="form" method="post" action="/login">
+            <div class="loginbox" style="font-size: 1.3rem;">
+              <p>
+                EMAIL
+                <input
+                  type="text"
+                  name="email"
+                  style="height: 1.8rem; margin-bottom: 2rem;"
+                />
+              </p>
+              <p>
+                PW
+                <input
+                  type="password"
+                  name="pw"
+                  style="height: 1.8rem; margin-bottom: 1rem;"
+                />
+              </p>
+              <input type="submit" value="login" />
+              <br />
+            </div>
+            <br />
+          </form>
+          <!--/div-->
+        </div>
+      </div>
+    </div>
   </body>
 </html>

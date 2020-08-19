@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  {% with messages= get_flashed_messages()%} {% if messages %}
+  <script>
+    alert("{{messages[-1]}}");
+  </script>
+  {% endif %} {% endwith %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inc0gnito face id - 회원가입</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='sign_up.css')}}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Quicksand&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div cl ass="contact-box">
+        <div class="left"></div>
+        <div class="right">
+          <form name="sign_up" method="post" action="">
+            <h2>회원가입</h2>
+            <input
+              type="text"
+              name="name"
+              class="field"
+              placeholder="Your Name"
+            />
+            <input
+              type="email"
+              name="email"
+              class="field"
+              placeholder="Your Email"
+            />
+            <input
+              type="text"
+              name="pw"
+              class="field"
+              placeholder="Your Password"
+            />
+            <input type="submit" class="btn" value="회원가입" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
