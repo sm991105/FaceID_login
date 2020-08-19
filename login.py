@@ -23,6 +23,11 @@ app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 mongo = PyMongo(app)
 
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 @app.route("/join", methods=["GET", "POST"])
 def member_join():
     if request.method == "POST":
@@ -56,11 +61,6 @@ def member_join():
 
     else:
         return render_template("join.html")
-
-
-@app.route("/")
-def index():
-    return "<a href='./login'>Sign in</a>"
 
 
 @app.route("/login", methods=["GET", "POST"])

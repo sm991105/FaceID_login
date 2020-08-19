@@ -1,0 +1,66 @@
+<html lang="ko">
+  {% with messages= get_flashed_messages()%} {% if messages %}
+  <script>
+    alert("{{messages[-1]}}");
+  </script>
+  {% endif %} {% endwith %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inc0gnito face id - Report page</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='report.css')}}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <img src="{{ url_for('static', filename='book.png') }}" />
+            <h3>회원가입</h3>
+          </div>
+        </div>
+
+        <div class="face face2">
+          <div class="content">
+            <p>새로운 Face ID 를 등록합니다</p>
+            <a href="./sign_up">회원가입</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <img src="{{ url_for('static', filename='bbb_128.png') }}" />
+            <h3>로그인</h3>
+          </div>
+        </div>
+
+        <div class="face face2">
+          <div class="content">
+            <p>등록된 Face ID 로 로그인합니다</p>
+            <a href="./login">로그인</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <img src="{{ url_for('static', filename='down.png') }}" />
+            <h3>기술보고서</h3>
+          </div>
+        </div>
+
+        <div class="face face2">
+          <div class="content">
+            <p>기술보고서 다운로드</p>
+            <a href="FaceID.dox">다운로드</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
