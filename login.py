@@ -85,12 +85,9 @@ def member_login():
                 # 2차 인증 - faceid
                 encoding_file = "encodings.pickle"
 
-                # def detectAndDisplay(frame):
-
                 # Starts here
                 data = pickle.loads(open(encoding_file, "rb").read())
 
-                # cap = cv2.VideoCapture(0)
                 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
                 while True:
                     ret, frame = cap.read()
@@ -98,7 +95,7 @@ def member_login():
                         print("No more captured frames!")
                         break
                     flipped = cv2.flip(frame, 1)
-                    # detectAndDisplay(flipped)
+
                     rgb = cv2.cvtColor(flipped, cv2.COLOR_BGR2RGB)
                     boxes = face_recognition.face_locations(rgb, model="HOG")
                     encodings = face_recognition.face_encodings(rgb, boxes)
@@ -166,7 +163,7 @@ def member_login():
                             else:
                                 cnt = 0
                                 flash("인식에 실패하였습니다.")
-                                return render_template("./join.html")
+                                return render_template("./login.html")
                         else:
                             flash("인식에 실패하였습니다.")
                             cnt = 0
@@ -196,7 +193,7 @@ def member_login():
                 cv2.destroyAllWindows()
                 cnt = 0
                 # 여기까지
-                # return render_template("./success.html")
+
             else:
                 flash("비밀번호가 일치하지 않습니다.")
                 return redirect(url_for("member_login"))

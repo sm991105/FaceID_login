@@ -13,7 +13,94 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"
     />
-    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}" />
+  
+    <style>
+
+body{
+    background-image: url('static/bg.jpg');
+    background-size:100%;
+    
+}
+
+.container{
+    width:40rem;
+    height:20rem;
+    position:absolute;
+    left:28%;
+    top:20%;
+}
+
+
+h2{
+    text-align:center;
+    padding-bottom:0.5rem;
+}
+
+h2:after{
+    display:block;
+    content:"";
+    border-bottom:  solid 3px #2ecc71;
+    border-radius:30%;
+    width:10.5rem;
+    margin-top:3%;
+    margin-left:36.8%;
+}
+
+p{
+    display:flex;
+}
+
+p span{
+    font-family:Arial, Helvetica, sans-serif;
+    margin:0.7rem;
+}
+
+.field
+{   text-align:center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    outline: none;
+    border: 2px solid rgba(0,0,0,0);
+    background-color: rgba(230,230,230,0.6);
+    font-size: 1.1rem;
+    margin-bottom: 22px;
+    transition: .3s;
+}
+.field:hover
+{
+    background-color: rgba(0,0,0,0.1);
+}
+.field:focus
+{
+    background-color: #fff;
+    border: 2px solid rgba(30, 85, 250, 0.47);
+}
+.btn
+{
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size:  0.7rem;
+    min-height: 38px;
+    font-weight: bold;
+    background-color: #2ecc71;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: .3s;
+}
+.btn:hover
+{
+    background-color: #27ae60;
+    color: #333;
+}
+
+.btn:hover a
+{
+    color: #333;
+}
+    </style>
     <link
       href="https://fonts.googleapis.com/css?family=Quicksand&display=swap"
       rel="stylesheet"
@@ -22,29 +109,31 @@
   <body>
     <div class="container">
       <div class="contact-box">
-        <div class="left"></div>
-        <div class="right">
           <h2>Face ID 로그인</h2>
           <!--div class="formBox"-->
           <form name="form" method="post" action="/login">
             <div class="loginbox" style="font-size: 1.3rem;">
               <p>
-                EMAIL
+                <span>EMAIL</span>
                 <input
+                 class="field"
                   type="text"
                   name="email"
                   style="height: 1.8rem; margin-bottom: 2rem;"
+                  placeholder="YOUR EMAIL"
                 />
               </p>
               <p>
-                PW
+                <span>PW</span>
                 <input
+                  class="field"
                   type="password"
                   name="pw"
                   style="height: 1.8rem; margin-bottom: 1rem;"
+                  placeholder="YOUR PASSWORD"
                 />
               </p>
-              <input type="submit" value="login" />
+              <input class="btn" type="submit" value="login" />
               <br />
             </div>
             <br />
