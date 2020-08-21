@@ -104,7 +104,7 @@ def member_login():
                         print("encodings exist")
                         for encoding in encodings:
                             matches = face_recognition.compare_faces(
-                                data["encodings"], encoding, tolerance=0.4
+                                data["encodings"], encoding, tolerance=0.5
                             )
                             name = "unknown"
                             print(matches)
